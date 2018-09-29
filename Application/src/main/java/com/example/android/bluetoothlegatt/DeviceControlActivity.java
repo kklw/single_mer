@@ -161,10 +161,10 @@ public class DeviceControlActivity extends Activity {
         mDeviceName = intent.getStringExtra(EXTRAS_DEVICE_NAME);
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
-        if (mDeviceAddress.contentEquals("34:15:13:87:C2:CE")) {
+//        if (mDeviceAddress.contentEquals("34:15:13:87:C2:CE")) {
             Intent toCheckpointClaimEntryIntent = new Intent(this, CheckpointClaimEntry.class);
             startActivity(toCheckpointClaimEntryIntent);
-        }
+//        }
 
         // Sets up UI references.
         ((TextView) findViewById(R.id.device_address)).setText(mDeviceAddress);
