@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CheckpointClaimEntry">
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/cp_claim_entry"
+            android:clickable="true"
+            android:onClick="onClickCheckPointClaimEntry"/>
+        <EditText
+            android:id="@+id/checkpoint_claim_edittext"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="145dp"
+            android:layout_marginTop="400dp"
+            android:textSize="32dp"
+            android:ems="10"
+            android:background="@color/cardview_light_background"
+            android:inputType="numberPassword"
+            android:text="" />
+    </FrameLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,6 @@
+.idea/*
+Application/build/
+build/
+sif2018.iml
+local.properties
+.gradle/
