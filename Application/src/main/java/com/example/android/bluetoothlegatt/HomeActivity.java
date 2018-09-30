@@ -65,7 +65,8 @@ public class HomeActivity extends Activity {
     }
 
     public void onClickStartScanning(View v) {
-        Intent toChallengeActivityIntent = new Intent(getBaseContext(), DeviceScanActivity.class);
+//        Intent toChallengeActivityIntent = new Intent(getBaseContext(), DeviceScanActivity.class);
+        Intent toChallengeActivityIntent = new Intent(getBaseContext(), DeviceScanActivityWifi.class);
         startActivity(toChallengeActivityIntent);
     }
 }
