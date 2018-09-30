@@ -14,7 +14,6 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import java.io.File;
@@ -22,7 +21,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class PictureActivity extends Activity {
-    private Button takePictureButton;
     private ImageView imageView;
     private Uri file;
     private boolean hasImage = false;
@@ -40,7 +38,6 @@ public class PictureActivity extends Activity {
         Log.i("Camera", "Check Permission.");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             Log.i("Camera", "Permission denied.");
-            takePictureButton.setEnabled(false);
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
         }
     }
@@ -50,7 +47,6 @@ public class PictureActivity extends Activity {
         if (requestCode == 0) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
                     && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                takePictureButton.setEnabled(true);
             }
         }
     }
