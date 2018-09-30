@@ -10,8 +10,8 @@
         android:id="@+id/startScanningButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/cp_prize"
         android:clickable="true"
-        android:onClick="onClickCheckPointSuccessEntry"/>
+        android:onClick="onClickCheckPointSuccessEntry"
+        android:src="@drawable/cp_prize_2" />
 
 </android.support.constraint.ConstraintLayout>
