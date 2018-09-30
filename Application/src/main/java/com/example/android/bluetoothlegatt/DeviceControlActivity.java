@@ -162,7 +162,7 @@ public class DeviceControlActivity extends Activity {
         mDeviceAddress = intent.getStringExtra(EXTRAS_DEVICE_ADDRESS);
 
 //        if (mDeviceAddress.contentEquals("34:15:13:87:C2:CE")) {
-            Intent toCheckpointClaimEntryIntent = new Intent(this, CheckpointClaimEntry.class);
+            Intent toCheckpointClaimEntryIntent = new Intent(this, PictureActivity.class);
             startActivity(toCheckpointClaimEntryIntent);
 //        }
 
