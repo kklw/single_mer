@@ -24,8 +24,8 @@ public class CheckpointClaimEntry extends Activity {
         String content = claim_edittext.getText().toString();
 
         if(content.contentEquals(claim_password)) {
-            Intent toCheckpointClaimMainIntent = new Intent(this, CheckpointClaimMain.class);
-            startActivity(toCheckpointClaimMainIntent);
+            Intent toPictureActivityIntent = new Intent(getBaseContext(), PictureActivity.class);
+            startActivity(toPictureActivityIntent);
         } else {
             Context context = getApplicationContext();
             CharSequence text = "Wrong Password!";
