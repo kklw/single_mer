@@ -107,7 +107,7 @@ public class DeviceScanActivityWifi extends ListActivity {
                 scanLeDevice(true);
                 break;
             case R.id.menu_stop:
-                scanLeDevice(false);
+//                scanLeDevice(false);
                 break;
         }
         return true;
@@ -134,7 +134,7 @@ public class DeviceScanActivityWifi extends ListActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        scanLeDevice(false);
+//        scanLeDevice(false);
         mWifiDeviceListAdapter.clear();
     }
 
