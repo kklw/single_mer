@@ -12,10 +12,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.view.Window;
+import android.widget.Button;
 
 public class HomeActivity extends Activity {
+    private Button takePictureButton;
 
-//    @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,11 +63,18 @@ public class HomeActivity extends Activity {
         }
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_home);
+
+        takePictureButton = (Button) findViewById(R.id.takePicture);
     }
 
     public void onClickStartScanning(View v) {
 //        Intent toChallengeActivityIntent = new Intent(getBaseContext(), DeviceScanActivity.class);
         Intent toChallengeActivityIntent = new Intent(getBaseContext(), DeviceScanActivityWifi.class);
         startActivity(toChallengeActivityIntent);
+    }
+
+    public void takePicture(View view) {
+        Intent toPictureActivityIntent = new Intent(getBaseContext(), PictureActivity.class);
+        startActivity(toPictureActivityIntent);
     }
 }
