@@ -51,7 +51,6 @@ import java.util.*;
  * Activity for scanning and displaying available Bluetooth LE devices.
  */
 public class DeviceScanActivityWifi extends ListActivity {
-    private LeDeviceListAdapter mLeDeviceListAdapter;
     private WifiDeviceListAdapter mWifiDeviceListAdapter;
     private WifiManager mWifiManager;
     private BroadcastReceiver mWifiScanReceiver;
@@ -158,25 +157,22 @@ public class DeviceScanActivityWifi extends ListActivity {
 
     private void scanSuccess() {
         List<ScanResult> results = mWifiManager.getScanResults();
-        mWifiDeviceListAdapter.addResults(results);
+        Set<String> s = new HashSet<>();
+        for (ScanResult r: results) {
+            s.add(r.SSID);
+        }
+        mWifiDeviceListAdapter.addResults(s);
         mWifiDeviceListAdapter.notifyDataSetChanged();
         Log.d("tag1","printing wifi scan results");
         StringBuilder message = new StringBuilder();
-        for (ScanResult r: results) {
-            Log.d("tag2", "result:" + r.toString());
-            message.append(r.SSID+"\n");
+        for (String r: s) {
+            Log.d("tag2", "result:" + r);
+            message.append(r+"\n");
         }
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("List of Wifi Hotspots:");
-//        builder.setMessage("Please grant location access so this app can detect beacons.");
         builder.setMessage(message.toString());
         builder.setPositiveButton(android.R.string.ok, null);
-//        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
-//            @Override
-//            public void onDismiss(DialogInterface dialogInterface) {
-//                requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 1);
-//            }
-//        });
         builder.show();
     }
 
@@ -191,23 +187,9 @@ public class DeviceScanActivityWifi extends ListActivity {
             mInflator = DeviceScanActivityWifi.this.getLayoutInflater();
         }
 
-        public void addResults(List<ScanResult> results) {
-            for (ScanResult r: results) mLeDevices.add(r.SSID);
+        public void addResults(Set<String> results) {
+            for (String str: results) mLeDevices.add(str);
         }
-
-//        public void addDevice(BluetoothDevice device) {
-//            if(device.getAddress().contentEquals("34:15:13:87:C2:CE")) {
-//
-//                if(!mLeDevices.contains(device)) {
-//                    mLeDevices.add(device);
-//                }
-//                Log.d("FAT", device.getAddress());
-//            }
-//        }
-
-//        public BluetoothDevice getDevice(int position) {
-//            return mLeDevices.get(position);
-//        }
 
         public String getSSID(int position) {
             return mLeDevices.get(position);
@@ -235,7 +217,7 @@ public class DeviceScanActivityWifi extends ListActivity {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             ViewHolder viewHolder;
-            Log.d("view", "in view");
+//            Log.d("view", "in view");
             // General ListView optimization code.
             if (view == null) {
                 view = mInflator.inflate(R.layout.listitem_device, null);
@@ -248,106 +230,10 @@ public class DeviceScanActivityWifi extends ListActivity {
             }
 
             viewHolder.deviceAddress.setText(mLeDevices.get(i));
-//
-//            BluetoothDevice device = mLeDevices.get(i);
-//            final String deviceName = device.getName();
-//            if (deviceName != null && deviceName.length() > 0)
-//                viewHolder.deviceName.setText(deviceName);
-//            else
-//                viewHolder.deviceName.setText(R.string.unknown_device);
-//            viewHolder.deviceAddress.setText(device.getAddress());
 
             return view;
         }
     }
-
-
-    // Adapter for holding devices found through scanning.
-    private class LeDeviceListAdapter extends BaseAdapter {
-        private ArrayList<BluetoothDevice> mLeDevices;
-        private LayoutInflater mInflator;
-
-        public LeDeviceListAdapter() {
-            super();
-            mLeDevices = new ArrayList<BluetoothDevice>();
-            mInflator = DeviceScanActivityWifi.this.getLayoutInflater();
-        }
-
-        public void addDevice(BluetoothDevice device) {
-            if(device.getAddress().contentEquals("34:15:13:87:C2:CE")) {
-
-                if(!mLeDevices.contains(device)) {
-                    mLeDevices.add(device);
-                }
-                Log.d("FAT", device.getAddress());
-            }
-        }
-
-        public BluetoothDevice getDevice(int position) {
-            return mLeDevices.get(position);
-        }
-
-        public void clear() {
-            mLeDevices.clear();
-        }
-
-        @Override
-        public int getCount() {
-            return mLeDevices.size();
-        }
-
-        @Override
-        public Object getItem(int i) {
-            return mLeDevices.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            ViewHolder viewHolder;
-            // General ListView optimization code.
-            if (view == null) {
-//                view = mInflator.inflate(R.layout.listitem_device, null);
-                view = mInflator.inflate(R.layout.listitem_device, null);
-                viewHolder = new ViewHolder();
-                viewHolder.deviceAddress = (TextView) view.findViewById(R.id.device_address);
-                viewHolder.deviceName = (TextView) view.findViewById(R.id.device_name);
-                view.setTag(viewHolder);
-            } else {
-                viewHolder = (ViewHolder) view.getTag();
-            }
-
-            BluetoothDevice device = mLeDevices.get(i);
-            final String deviceName = device.getName();
-            if (deviceName != null && deviceName.length() > 0)
-                viewHolder.deviceName.setText(deviceName);
-            else
-                viewHolder.deviceName.setText(R.string.unknown_device);
-            viewHolder.deviceAddress.setText(device.getAddress());
-
-            return view;
-        }
-    }
-
-    // Device scan callback.
-    private BluetoothAdapter.LeScanCallback mLeScanCallback =
-            new BluetoothAdapter.LeScanCallback() {
-
-        @Override
-        public void onLeScan(final BluetoothDevice device, int rssi, byte[] scanRecord) {
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    mLeDeviceListAdapter.addDevice(device);
-                    mLeDeviceListAdapter.notifyDataSetChanged();
-                }
-            });
-        }
-    };
 
     static class ViewHolder {
         TextView deviceName;
