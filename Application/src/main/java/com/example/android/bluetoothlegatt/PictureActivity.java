@@ -25,6 +25,7 @@ public class PictureActivity extends Activity {
     private Button takePictureButton;
     private ImageView imageView;
     private Uri file;
+    private boolean hasImage = false;
     public static final int MEDIA_TYPE_IMAGE = 1;
     public static final int MEDIA_TYPE_VIDEO = 2;
 
@@ -34,7 +35,6 @@ public class PictureActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_picture);
 
-        takePictureButton = (Button) findViewById(R.id.takePic);
         imageView = (ImageView) findViewById(R.id.imageview);
 
         Log.i("Camera", "Check Permission.");
@@ -62,6 +62,13 @@ public class PictureActivity extends Activity {
 
     public void takePic(View view) {
         Log.i("Take Picture","Clicked take picture.");
+        if (hasImage) {
+            // Goto rewards page
+            Intent toCheckpointClaimMainIntent = new Intent(this, CheckpointClaimMain.class);
+            startActivity(toCheckpointClaimMainIntent);
+            return;
+        }
+
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         try {
@@ -99,6 +106,7 @@ public class PictureActivity extends Activity {
         if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 imageView.setImageURI(file);
+                this.hasImage = true;
             }
         }
     }

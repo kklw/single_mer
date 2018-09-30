@@ -19,8 +19,9 @@
             android:id="@+id/takePicture"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Picture"
             android:onClick="takePicture"
+            android:text="Picture"
+            android:visibility="invisible"
             tools:layout_editor_absoluteX="238dp"
             tools:layout_editor_absoluteY="355dp" />
 

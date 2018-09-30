@@ -17,7 +17,6 @@ import android.widget.Button;
 public class HomeActivity extends Activity {
     private Button takePictureButton;
 
-//    @TargetApi(Build.VERSION_CODES.O)
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
